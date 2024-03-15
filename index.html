@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Адаптивное меню</title>
+</head>
+
+<body>
+	<header>
+		<div class="container">
+			<div class="header_content">
+				<a href="/" class="logo">
+					<img src="./images/logo.jpg" alt="Наш логотип" width="150" height="150">
+				</a>
+				<input type="checkbox" id="burger" class="checkbox_burger">
+				<label class="burger" for="burger"></label>
+				<nav>
+					<ul class="header_menu">
+						<li><span class="active" href="">Главная</span></li>
+						<li><a href="#">О нас</a></li>
+						<li><a href="#">Галерея</a></li>
+						<li><a href="#">Афиша</a></li>
+						<li><a href="#">Новости</a></li>
+						<li><a href="#">Наши правила</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</header>
+	<style>
+		:root {
+			--color-primary: #252525;
+			--color-secondary: #fc7320;
+			--color-background: #fff;
+			color: var(--color-primary);
+			background-color: grey;
+			font: normal 400 16px sans-serif;
+		}
+
+		*,
+		*::before,
+		*::after {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		a {
+			color: inherit;
+			text-decoration: none;
+		}
+
+		li {
+			list-style: none;
+		}
+
+		.container {
+			max-width: 960px;
+			margin: 0 auto;
+			padding: 0 15px;
+		}
+
+		header {
+			background-color: var(--color-background);
+		}
+
+		.header_content {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			height: 100px;
+		}
+
+		.header_content .logo {
+			display: block;
+			width: 150px;
+			height: 150px;
+			border-radius: 50%;
+			overflow: hidden;
+			align-self: flex-start;
+			position: relative;
+			z-index: 2;
+		}
+
+		.header_content nav {
+			flex: 1;
+		}
+
+		.header_menu {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			margin-left: 50px;
+			margin-right: 10px;
+			gap: 10px;
+		}
+
+		.header_menu .active {
+			color: var(--color-secondary);
+			cursor: default;
+		}
+
+		.header_menu a {
+			transition: 0.15s;
+		}
+
+		.header_menu a:hover {
+			opacity: 0.7;
+		}
+
+		.checkbox_burger {
+			display: none;
+		}
+
+		.burger {
+			display: none;
+			background: none;
+			border-radius: 0;
+			border: 0;
+			color: var(--color-secondary);
+			border-top: 4px solid;
+			border-bottom: 4px solid;
+			width: 40px;
+			height: 25px;
+			position: relative;
+			z-index: 101;
+			transition: 0.15s linear;
+		}
+
+		.header_content .checkbox_burger:checked~.burger {
+			border: 0;
+		}
+
+		.burger::before,
+		.burger::after {
+			content: "";
+			width: 100%;
+			height: 4px;
+			background-color: var(--color-secondary);
+			position: absolute;
+			top: calc(50% - 2px);
+			left: 0;
+			transition: 0.3s linear;
+		}
+
+		.header_content .checkbox_burger:checked~.burger::before {
+			transform: rotate(45deg);
+		}
+
+		.header_content .checkbox_burger:checked~.burger::after {
+			transform: rotate(-45deg);
+		}
+
+		@media (max-width: 968px) {
+			.burger {
+				display: block;
+			}
+
+			.header_content nav {
+				position: fixed;
+				height: 100vh;
+				top: 0;
+				left: -320px;
+				background: var(--color-background);
+				z-index: 100;
+				width: 320px;
+				transition: 0.5s;
+			}
+
+			.header_content nav::after {
+				content: "";
+				display: block;
+				width: calc(100vw + 320px);
+				height: 100vh;
+				background: rgba(0, 0, 0, 0.6);
+				position: absolute;
+				top: 0;
+				left: 320px;
+				z-index: -1;
+				opacity: 0;
+				visibility: hidden;
+				transition: 0.5s;
+			}
+
+			.header_content .checkbox_burger:checked~nav {
+				left: 0px;
+			}
+
+			.header_content .checkbox_burger:checked~nav::after {
+				opacity: 1;
+				visibility: visible;
+			}
+
+			.header_menu {
+				flex-direction: column;
+				margin: 30px 20px 0;
+				align-items: baseline;
+			}
+
+			.header_menu li {
+				margin-bottom: 10px;
+			}
+		}
+	</style>
+</body>
+
+</html>
